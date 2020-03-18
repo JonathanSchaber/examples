@@ -30,18 +30,20 @@ class Corpus(object):
         # Add words to the dictionary
         with open(path, 'r', encoding="utf8") as f:
             for line in f:
-                words = line.split() + ['<eos>']
-                for word in words:
-                    self.dictionary.add_word(word)
+            	chars = [char for char in line]
+                # words = line.split() + ['<eos>']
+                for char in chars:
+                    self.dictionary.add_word(char)
 
         # Tokenize file content
         with open(path, 'r', encoding="utf8") as f:
             idss = []
             for line in f:
-                words = line.split() + ['<eos>']
+            	chars = [char for char in line]
+                # words = line.split() + ['<eos>']
                 ids = []
-                for word in words:
-                    ids.append(self.dictionary.word2idx[word])
+                for char in chars:
+                    ids.append(self.dictionary.word2idx[char])
                 idss.append(torch.tensor(ids).type(torch.int64))
             ids = torch.cat(idss)
 
