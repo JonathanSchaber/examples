@@ -1,4 +1,5 @@
 import os
+import csv
 from io import open
 import torch
 
@@ -29,17 +30,19 @@ class Corpus(object):
         assert os.path.exists(path)
         # Add words to the dictionary
         with open(path, 'r', encoding="utf8") as f:
-            for line in f:
-            	chars = [char for char in line]
+        	csv_reader = csv.reader(f)
+            for row in csv_reader:
+            	chars = [char for char in row[1]]
                 # words = line.split() + ['<eos>']
                 for char in chars:
                     self.dictionary.add_word(char)
 
         # Tokenize file content
         with open(path, 'r', encoding="utf8") as f:
+        	csv_reader = csv.reader(f)
             idss = []
-            for line in f:
-            	chars = [char for char in line]
+            for row in csv_reader:
+            	chars = [char for char in row[1]]
                 # words = line.split() + ['<eos>']
                 ids = []
                 for char in chars:
