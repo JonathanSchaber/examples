@@ -21,28 +21,28 @@ class Dictionary(object):
 class Corpus(object):
     def __init__(self, path):
         self.dictionary = Dictionary()
-        self.train = self.tokenize(os.path.join(path, 'train.txt'))
-        self.valid = self.tokenize(os.path.join(path, 'valid.txt'))
-        self.test = self.tokenize(os.path.join(path, 'test.txt'))
+        self.train = self.tokenize(os.path.join(path, 'train_main.csv'))
+        self.valid = self.tokenize(os.path.join(path, 'dev_main.csv'))
+        self.test = self.tokenize(os.path.join(path, 'dev_main.csv'))
 
     def tokenize(self, path):
         """Tokenizes a text file."""
         assert os.path.exists(path)
         # Add words to the dictionary
         with open(path, 'r', encoding="utf8") as f:
-        	csv_reader = csv.reader(f)
+            csv_reader = csv.reader(f)
             for row in csv_reader:
-            	chars = [char for char in row[1]]
+                chars = [char for char in row[1]]
                 # words = line.split() + ['<eos>']
                 for char in chars:
                     self.dictionary.add_word(char)
 
         # Tokenize file content
         with open(path, 'r', encoding="utf8") as f:
-        	csv_reader = csv.reader(f)
+            csv_reader = csv.reader(f)
             idss = []
             for row in csv_reader:
-            	chars = [char for char in row[1]]
+                chars = [char for char in row[1]]
                 # words = line.split() + ['<eos>']
                 ids = []
                 for char in chars:

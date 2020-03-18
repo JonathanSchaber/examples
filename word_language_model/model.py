@@ -2,6 +2,7 @@ import math
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
+torch.set_num_threads(40)
 
 class RNNModel(nn.Module):
     """Container module with an encoder, a recurrent module, and a decoder."""
